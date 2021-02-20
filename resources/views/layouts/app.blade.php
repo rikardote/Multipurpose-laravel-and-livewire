@@ -15,6 +15,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('backend/plugins/toastr/toastr.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 
 
   <livewire:styles />
@@ -60,6 +61,8 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('backend/dist/js/adminlte.min.js')}}"></script>
 <script src="{{ asset('backend/plugins/toastr/toastr.min.js')}}"></script>
+<script type="text/javascript" src="https://unpkg.com/moment"></script>
+<script src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 
 <script>
     $(document).ready(function(){
@@ -90,6 +93,17 @@
         toastr.success(event.detail.message, 'Success!');
     })
 </script>
+<script>
+    $(document).ready(function() {
+      $('#appointmentDate').datetimepicker({
+        format: 'L',
+      });
+      $('#appointmentDate').on("change.datetimepicker", function (e) {
+        let date = $(this).data('appointmentdate');
+        eval(date).set('state.date', $('#appointmentDateInput').val());
+      });
+    });
+  </script>
 <livewire:scripts />
 </body>
 </html>
