@@ -29,7 +29,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="client">Client:</label>
-                                            <select class="form-control" wire:model.defer="state.client_id">
+                                            <select wire:model.defer="state.client_id" class="form-control" wire:model.defer="state.client_id">
                                                 <option value="">Select Client</option>
                                                 @foreach($clients as $client)
                                                     <option value="{{ $client->id }}">{{ $client->name }}</option>
@@ -42,8 +42,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Date:</label>
-                                            <div class="input-group date" id="appointmentDate" data-target-input="nearest">
-                                                <input wire:model.lazy="state.date" type="text" class="form-control datetimepicker-input" data-target="#appointmentDate">
+                                            <div wire:ignore class="input-group date" id="appointmentDate" data-target-input="nearest" data-appointmentdate="@this">
+                                                <input type="text" class="form-control datetimepicker-input" data-target="#appointmentDate" id="appointmentDateInput">
                                                 <div class="input-group-append" data-target="#appointmentDate" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -68,7 +68,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="note">Note:</label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea wire:model.defer="state.note" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
