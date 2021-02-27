@@ -34,7 +34,7 @@
                                  <th scope="col">#</th>
                                  <th scope="col">Nombre</th>
                                  <th scope="col">Edad</th>
-                                 <th scope="col">RFC</th>
+                                 <th scope="col">Direccion</th>
                                  <th scope="col">email</th>
                                  <th scope="col">telefono</th>
                                  <th scope="col">Opciones</th>
@@ -43,12 +43,12 @@
                         <tbody>
                             @foreach ($patients as $patient)
                                 <tr>
-                                    <th scope="row"> {{$loop->iteration }} </th>
+                                    <td scope="row"> {{$patient->id }} </td>
                                     <td>{{ $patient->fullname  }}</td>
                                     <td>{{ $patient->age }} </td>
-                                    <td>{{ $patient->rfc }} </td>
+                                    <td>{{ $patient->direccion }} </td>
                                     <td>{{ $patient->email }} </td>
-                                    <td>{{ $patient->telefono }} </td>
+                                    <td>{{ $patient->telefono_1 }} </td>
                                     <td>
                                         <a href="" wire:click.prevent="editPatient({{ $patient }})" >
                                             <i class="fa fa-edit mr-2"></i>

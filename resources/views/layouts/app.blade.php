@@ -9,15 +9,18 @@
   <title>MejorandoSonrisas | Inicio</title>
 
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css') }}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('backend/plugins/toastr/toastr.min.css') }}">
   <link rel="stylesheet" href="{{ asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+  <link rel="stylesheet" href="{{ asset('backend/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/mycss.css') }}">
+
 
   <livewire:styles />
 
@@ -63,9 +66,9 @@
 <script src="{{ asset('backend/dist/js/adminlte.min.js')}}"></script>
 <script src="{{ asset('backend/plugins/toastr/toastr.min.js')}}"></script>
 <script src="{{ asset('backend/plugins/inputmask/min/jquery.inputmask.bundle.min.js')}}"></script>
-<script type="text/javascript" src="https://unpkg.com/moment"></script>
+<script src="{{ asset('backend/plugins/moment/moment-with-locales.min.js')}}"></script>
 <script src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="{{ asset('backend/plugins/select2/js/select2.min.js')}}"></script>
 
 
 
@@ -100,25 +103,35 @@
 </script>
 <script>
     $(document).ready(function() {
-      $('#nacimientoDate').datetimepicker({
-        format: 'L',
-      });
-      $('#nacimientoDate').on("change.datetimepicker", function (e) {
-        let date = $(this).data('nacimientoDate');
-        eval(date).set('state.fecha_nacimiento', $('#nacimientoDateInput').val());
+      $('#appointmentTime').datetimepicker({
+        format: 'LT',
+        stepping: 15,
+        use24hours: true,
+        format: 'HH:mm'
       });
     });
   </script>
+  <script>
+    $(document).ready(function() {
+        $('#appointmentDate').datetimepicker({
+            format: 'L',
+            locale:'es',
+
+        });
+    });
+</script>
   <script>
     $(document).ready(function() {
         $('.mi-selector').select2({
             theme: 'bootstrap4',
             placeholder: 'Selecciona un paciente',
             allowClear: true,
+            minimumResultsForSearch: 5,
+            width: '100%'
         });
     });
-
   </script>
+
   <script>
        $(document).ready(function() {
         $('[data-mask]').inputmask({

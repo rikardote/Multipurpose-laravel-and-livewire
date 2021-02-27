@@ -28,7 +28,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="patient_id">Paciente:</label>
-                                            <select wire:model.defer="state.patient_id" class="mi-selector form-control"  wire:model.defer="state.patient_id">
+                                            <select wire:model.defer="state.patient_id" class="form-control mi-selector">
                                                 <option value="">Selecciona un Paciente</option>
                                                 @foreach($patients as $patient)
                                                     <option value="{{ $patient->id }}">{{ $patient->id }} - {{ $patient->fullname }}</option>
@@ -40,18 +40,12 @@
 
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Fecha:</label>
-                                             <input type="text" wire:model.defer="state.date" class="form-control" id='date' data-mask>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Appointment Time:</label>
-                                            <div class="input-group date" id="appointmentTime" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" data-target="#appointmentTime">
-                                                <div class="input-group-append" data-target="#appointmentTime" data-toggle="datetimepicker">
+                                            <div class="input-group date" id="appointmentDate" data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input" data-target="#appointmentDate"/>
+                                                <div class="input-group-append" data-target="#appointmentDate" data-toggle="datetimepicker">
                                                     <div class="input-group-text">
                                                         <i class="far fa-calendar-alt"></i>
                                                     </div>
@@ -59,11 +53,27 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
+
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="note">Note:</label>
+                                            <label>Horario:</label>
+                                            <div class="input-group date" id="appointmentTime" data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input" data-target="#appointmentTime">
+                                                <div class="input-group-append" data-target="#appointmentTime" data-toggle="datetimepicker">
+                                                    <div class="input-group-text">
+                                                        <i class="far fa-clock"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="note">Nota:</label>
                                             <textarea wire:model.defer="state.note" class="form-control"></textarea>
                                         </div>
                                     </div>

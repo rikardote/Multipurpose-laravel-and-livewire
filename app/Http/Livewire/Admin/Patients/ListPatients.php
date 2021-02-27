@@ -51,7 +51,7 @@ class ListPatients extends AdminComponent
 
     public function render()
     {
-        $patients = Patient::latest()->paginate(5);
+        $patients = Patient::latest()->paginate(15);
         $refers = Refer::all();
 
         return view('livewire.admin.patients.list-patients')->with('patients',$patients)->with('refers', $refers);
