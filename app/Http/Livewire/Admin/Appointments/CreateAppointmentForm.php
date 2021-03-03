@@ -24,7 +24,7 @@ class CreateAppointmentForm extends Component
     {
     	$patients = Patient::all();
 
-        return view('livewire.admin.appointments.create-appointment-form', [
+        return view('livewire.admin.appointments.list-appointment', [
         	'patients' => $patients,
         ]);
     }

@@ -12,8 +12,18 @@ class Appointment extends Model
 
     protected $guarded = [];
 
+    protected $fillable = [
+        'patient_id',
+        'date',
+        'time',
+        'status',
+        'note'
+
+    ];
+
     protected $casts = [
     	'date' => 'datetime',
+        'time' => 'datetime',
     ];
     public function setDateAttribute($value)
     {

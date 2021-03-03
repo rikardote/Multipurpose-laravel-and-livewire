@@ -3,12 +3,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Appointments</h1>
+          <h1 class="m-0 text-dark">Citas</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-            <li class="breadcrumb-item active">Appointments</li>
+            <li class="breadcrumb-item active">Citas</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -22,9 +22,11 @@
       <div class="row">
         <div class="col-lg-12">
         	<div class="d-flex justify-content-end mb-2">
-            <a href="{{ route('admin.appointments.create') }}">
-        		  <button class="btn btn-primary"><i class="fa fa-plus-circle mr-1"></i> Add New Appointment</button>
-            </a>
+                <button wire:click.prevent="addNew" class="btn btn-primary">
+                    <i class="fa fa-plus-circle mr-1">
+                        Agendar nueva cita
+                    </i>
+                </button>
         	</div>
           <div class="card">
             <div class="card-body">
@@ -32,30 +34,31 @@
       				  <thead>
       				    <tr>
       				      <th scope="col">#</th>
-      				      <th scope="col">Client Name</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Time</th>
+      				      <th scope="col">Cliente</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Horario</th>
       				      <th scope="col">Status</th>
       				      <th scope="col">Options</th>
       				    </tr>
       				  </thead>
       				  <tbody>
-      				    <tr>
-      				      <th scope="row">1</th>
-      				      <td>Client Name</td>
-      				      <td>Date</td>
-                    <td>Time</td>
-                    <td>stauts</td>
-      				      <td>
-      				      	<a href="">
-      				      		<i class="fa fa-edit mr-2"></i>
-      				      	</a>
-
-      				      	<a href="" >
-      				      		<i class="fa fa-trash text-danger"></i>
-      				      	</a>
-      				      </td>
-      				    </tr>
+                            @foreach($appointments as $appointment)
+                                <tr>
+                                    <th scope="row">{{$appointment->id}}</th>
+                                    <td>{{$appointment->nombre}}</td>
+                                    <td>{{$appointment->date}}</td>
+                                    <td>{{$appointment->time}}</td>
+                                    <td>{{$appointment->status}}</td>
+                                    <td>
+                                        <a href="">
+                                            <i class="fa fa-edit mr-2"></i>
+                                        </a>
+                                        <a href="" >
+                                            <i class="fa fa-trash text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
       				  </tbody>
       				</table>
             </div>
@@ -69,6 +72,107 @@
     </div><!-- /.container-fluid -->
   </div>
   <!-- /.content -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <form autocomplete="off" wire:submit.prevent="{{ $showEditModal ? 'updateAppointment' : 'createAppointment' }}">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            @if($showEditModal)
+                                <span>Editar Cita</span>
+                            @else
+                                <span>Agendar Cita</span>
+                            @endif
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="content">
+                            <div class="container-fluid">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="patient_id">Paciente:</label>
+                                                                <div wire:ignore class="input-group date" id="appointmentPatient" data-target-input="nearest" data-appointmentpatient="@this">
+                                                                    <select id="appointmentPatientInput" class="form-control mi-selector" data-target="#appointmentPatient">
+                                                                        <option value="">Selecciona un Paciente</option>
+                                                                        @foreach($patients as $patient)
+                                                                            <option value="{{ $patient->id }}">{{ $patient->id }} - {{ $patient->fullname }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Fecha:</label>
+                                                                <div wire:ignore class="input-group date" id="appointmentDate" data-target-input="nearest" data-appointmentdate="@this">
+                                                                    <input id="appointmentDateInput" type="text" class="form-control datetimepicker-input" data-target="#appointmentDate"/>
+                                                                    <div class="input-group-append" data-target="#appointmentDate" data-toggle="datetimepicker">
+                                                                        <div class="input-group-text">
+                                                                            <i class="far fa-calendar-alt"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Horario:</label>
+                                                                <div wire:ignore class="input-group date" id="appointmentTime" data-target-input="nearest" data-appointmenttime="@this">
+                                                                    <input  type="text" class="form-control datetimepicker-input" data-target="#appointmentTime" id="appointmentTimeInput">
+                                                                    <div class="input-group-append" data-target="#appointmentTime" data-toggle="datetimepicker">
+                                                                        <div class="input-group-text">
+                                                                            <i class="far fa-clock"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="note">Nota:</label>
+                                                                <textarea wire:model.defer="state.note" class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button" class="btn btn-secondary"><i class="fa fa-times mr-1"></i> Cancel</button>
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i> Save</button>
+                                                </div>
+
+                                            </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
 
   <!-- Modal -->
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>

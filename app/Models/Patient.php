@@ -10,6 +10,8 @@ class Patient extends Model
 {
     use HasFactory;
 
+
+
     protected $fillable = [
         'direccion',
         'apellido_paterno',
@@ -25,6 +27,7 @@ class Patient extends Model
         'fecha_nacimiento',
         'ultima_visita'
     ];
+
 
     public function getfullnameAttribute($value)
     {
@@ -67,7 +70,7 @@ class Patient extends Model
     }
 
     protected $casts = [
-    	'fecha_nacimiento' => 'date:d-m-Y',
+    	'fecha_nacimiento' => 'date:d/m/Y',
     ];
 
     public function setfechanacimientoAttribute($value)

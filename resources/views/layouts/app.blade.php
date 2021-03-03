@@ -90,6 +90,13 @@
 <script>
     window.addEventListener('show-form', event => {
         $('#form').modal('show');
+        $('.mi-selector').select2({
+            theme: 'bootstrap4',
+            placeholder: 'Selecciona un paciente',
+            allowClear: true,
+            minimumResultsForSearch: 5,
+            width: '100%'
+        });
     })
 
     window.addEventListener('show-delete-modal', event => {
@@ -101,36 +108,51 @@
         toastr.success(event.detail.message, 'Success!');
     })
 </script>
+
+<script>
+/*
+    $('.mi-selector').select2({
+        theme: 'bootstrap4',
+        placeholder: 'Selecciona un paciente',
+        allowClear: true,
+        minimumResultsForSearch: 5,
+        width: '100%'
+    });
+    */
+    $('#appointmentPatient').on("change.select2", function (e) {
+        let patient = $(this).data('appointmentpatient');
+        eval(patient).set('state.patient_id', $('#appointmentPatientInput').val());
+    });
+
+</script>
 <script>
     $(document).ready(function() {
-      $('#appointmentTime').datetimepicker({
-        format: 'LT',
-        stepping: 15,
-        use24hours: true,
-        format: 'HH:mm'
-      });
-    });
-  </script>
-  <script>
-    $(document).ready(function() {
         $('#appointmentDate').datetimepicker({
-            format: 'L',
-            locale:'es',
-
+                format: 'L',
+                locale:'es',
         });
+
+        $('#appointmentTime').on("change.datetimepicker", function (e) {
+            let time = $(this).data('appointmenttime');
+            eval(time).set('state.time', $('#appointmentTimeInput').val());
+        });
+
+        $('#appointmentTime').datetimepicker({
+            format: 'LT',
+            stepping: 15,
+            use24hours: true,
+            format: 'HH:mm'
+        });
+
+        $('#appointmentDate').on("change.datetimepicker", function (e) {
+            let date = $(this).data('appointmentdate');
+            eval(date).set('state.date', $('#appointmentDateInput').val());
+        });
+
+
     });
 </script>
-  <script>
-    $(document).ready(function() {
-        $('.mi-selector').select2({
-            theme: 'bootstrap4',
-            placeholder: 'Selecciona un paciente',
-            allowClear: true,
-            minimumResultsForSearch: 5,
-            width: '100%'
-        });
-    });
-  </script>
+
 
   <script>
        $(document).ready(function() {
